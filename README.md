@@ -2,7 +2,20 @@
 
 An mdbook preprocessor for incorporating flashcards and fill-in-the-blanks into your documents
 
-## Usage
+## Getting Started
+
+### Installation
+
+```bash
+mdbook-flash install
+```
+
+```toml
+[preprocessor.flash]
+renderers = ["html"]
+```
+
+### Usage
 
 Fill-in-the-blanks
 
@@ -24,8 +37,10 @@ Flashcard
 
 ```
 
-## Installation
+## TODO
 
-```bash
-mdbook-flash install
-```
+- [ ] Mvp
+- [ ] Testing
+- [ ] Examples
+- [ ] Github CI
+- [ ] Documentation site?

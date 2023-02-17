@@ -1,0 +1,16 @@
+[package]
+name = "mdbook-flash"
+version = "0.1.0"
+edition = "2021"
+
+authors = ["ImAKappa"]
+categories = ["command-line-utilities"]
+description = "An mdbook preprocessor for including flashcards and blank-fills into your documents"
+keywords = ["mdbook", "markdown"]
+license = "MIT"
+readme = "README.md"
+repository = ""
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]

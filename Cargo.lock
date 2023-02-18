@@ -857,6 +857,7 @@ dependencies = [
  "mdbook",
  "pulldown-cmark",
  "pulldown-cmark-to-cmark",
+ "regex",
  "semver",
  "serde_json",
 ]

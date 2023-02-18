@@ -1,26 +1,17 @@
-use mdbook_flash::Nop;
+use clap::crate_version;
+use mdbook_flash::Flash;
 use clap::{Arg, ArgMatches, Command};
-use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
+use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
 use semver::{Version, VersionReq};
 use mdbook::errors::Error;
 use std::io;
 use std::process;
 
-pub fn make_app() -> Command {
-    Command::new("nop-preprocessor")
-        .about("A mdbook preprocessor which does precisely nothing")
-        .subcommand(
-            Command::new("supports")
-                .arg(Arg::new("renderer").required(true))
-                .about("Check whether a renderer is supported by this preprocessor"),
-        )
-}
-
 fn main() {
     let matches = make_app().get_matches();
 
     // Users will want to construct their own preprocessor here
-    let preprocessor = Nop::new();
+    let preprocessor = Flash::new();
 
     if let Some(sub_args) = matches.subcommand_matches("supports") {
         handle_supports(&preprocessor, sub_args);
@@ -30,6 +21,19 @@ fn main() {
     }
 }
 
+/// Required function for mdbook
+pub fn make_app() -> Command {
+    Command::new("mdbook-flash")
+        .version(crate_version!())
+        .about("A mdbook proprocessor that includes flash cards and blank-fills")
+        .subcommand(
+            Command::new("supports")
+                .arg(Arg::new("renderer").required(true))
+                .about("Check whether a renderer is supported by this preprocessor"),
+        )
+}
+
+/// Required function for mdbook
 fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
     let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
 
@@ -52,6 +56,7 @@ fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
     Ok(())
 }
 
+/// Required function for mdbook
 fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
     let renderer = sub_args
         .get_one::<String>("renderer")
